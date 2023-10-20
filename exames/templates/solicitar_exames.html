@@ -14,13 +14,14 @@
 
             <div class="col-md">
                 <h3 class="font-destaque">Solicitar exames</h3>
-
-                <form action="" method="POST">
+                <form action="{% url 'solicitar_exames' %}" method="POST">{% csrf_token %}
                     <label for="">Selecione os exames para realizar</label>
                     <select class="select form-control bg-select" multiple name="exames">
 
-                        <option class="opt" value="">Exame 1</option>
-
+                        {% for exame in tipos_exames %}
+                            <option class="opt" value="{{exame.id}}">{{exame.nome}}</option>
+                        {% endfor %}
+                        
                     </select>
                     <br>
                     <input type="submit" class="btn-default tamanho-2" name="ultimo_nome" value="Solicitar exames">
@@ -32,27 +33,51 @@
 
             <div class="col-md card">
 
-                <div style="font-size: 20px; font-weight: bold">
-                    <img src="{% static 'exames/img/check.png' %}">
-                    Exame 1
-                    <span class="previa-preco">
-                    R$ 30
-                    </span>
-                </div>
+                {% if solicitacao_exames %}
 
-                <hr style="color: white;">
+                    <div style="font-size: 20px; font-weight: bold">
 
-                <div>
-                    <label>Total: </label><label class="previa-preco">R$ 30</label>
-                </div>
+                        {% for i in solicitacao_exames %}
+
+                            {% if i.disponivel == True %}
+                                <img src="{% static 'exames/img/check.png' %}" style="width: 5%; padding-bottom: 5px;">
+                            {% endif %}
+
+                            {% if i.disponivel == False %}
+                                <img src="{% static 'exames/img/uncheck.png' %}" style="width: 5%; padding-bottom: 2px;">
+                            {% endif %}
+
+                            {{i.nome}}
+                            <span class="previa-preco">
+                                R$ {{i.preco}}
+                            </span>
+                            <br>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <hr style="color: white;">
+
+                    <div>
+                        <label>Total: </label><label class="previa-preco">R$ {{preco_total}}</label>
+                    </div>
+                    
+                    <br>
+                    <h5>Data: 08 de Setembro</h5>
+                    <br>
+                    <form action="" method="POST">
+
+                        {% for exame in solicitacao_exames %}
+                            <input type="hidden" value="{{exame.id}}" name="exames">
+                        {% endfor %}
+
+                        <button class="btn-secundario">Fechar pedido</button>
+                    </form>
                 
-                <br>
-                <h5>Data: 08 de Setembro</h5>
-                <br>
-
-                <form action="" method="POST">
-                    <button class="btn-secundario">Fechar pedido</button>
-                </form>
+                {% else %}
+                    <h4 style="font-weight: 100; align-self: center;">Nenhum exame selecionado.</h4>
+                {% endif %}
 
             </div>
 
