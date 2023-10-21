@@ -64,17 +64,16 @@
                     </div>
                     
                     <br>
-                    <h5>Data: 08 de Setembro</h5>
+                    <h5>Data: {{data}}</h5>
                     <br>
-                    <form action="" method="POST">
+                    <form action='{% url "fechar_pedido" %}' method="POST">{% csrf_token %}
 
                         {% for exame in solicitacao_exames %}
                             <input type="hidden" value="{{exame.id}}" name="exames">
                         {% endfor %}
-
-                        <button class="btn-secundario">Fechar pedido</button>
+                    <button class="btn-secundario">Fechar pedido</button>
                     </form>
-                
+
                 {% else %}
                     <h4 style="font-weight: 100; align-self: center;">Nenhum exame selecionado.</h4>
                 {% endif %}
