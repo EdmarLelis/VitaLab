@@ -11,7 +11,6 @@ from django.contrib import messages
 def solicitar_exames(request):
     tipos_exames = TiposExames.objects.all()
     if request.method == 'GET':
-        print(tipos_exames)
         return render(request, 'solicitar_exames.html', {'tipos_exames': tipos_exames})
     elif request.method == 'POST':
         exames_id = request.POST.getlist('exames')
@@ -22,7 +21,6 @@ def solicitar_exames(request):
         for i in solicitacao_exames:
             if i.disponivel == True:
                 preco_total += i.preco
-        print(preco_total)
 
         return render(request, 'solicitar_exames.html', {'tipos_exames': tipos_exames, 
                                                          'solicitacao_exames': solicitacao_exames,
@@ -32,14 +30,16 @@ def solicitar_exames(request):
 def fechar_pedido(request):
     exames_id = request.POST.getlist('exames')
     solicitacao_exames = TiposExames.objects.filter(id__in = exames_id)
-    valido = False
+    valido = True
     for exame in solicitacao_exames:
-        if exame.disponivel == True:
-            valido = True
+        if exame.disponivel == False:
+            valido = False
+    
     pedido_exame = PedidosExames(
         usuario = request.user,
         data = datetime.now()
     )
+
     if valido == True:
         pedido_exame.save()
 
@@ -58,7 +58,13 @@ def fechar_pedido(request):
         messages.add_message(request, constants.SUCCESS, 'Pedido de exames realizado com sucesso!')
     
     else:
-        messages.add_message(request, constants.ERROR, 'Pedido Invalido, o(s) exame(s) solicitado(s) não estão disponíveis')
+        messages.add_message(request, constants.ERROR, 'Pedido negado, um ou mais exames solicitados estão indisponíveis.')
 
     valido = False
-    return redirect('/exames/ver_pedidos')
+    return redirect('/exames/gerenciar_pedidos')
+
+@login_required
+def gerenciar_pedidos(request):
+    pedidos_exames = PedidosExames.objects.filter(usuario=request.user)
+    return render(request, 'gerenciar_pedidos.html', {'pedidos_exames': pedidos_exames})
+    # fazer cancelar funcionar
