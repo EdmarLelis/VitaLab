@@ -26,7 +26,8 @@ def solicitar_exames(request):
                                                          'solicitacao_exames': solicitacao_exames,
                                                          'preco_total': preco_total,
                                                          'data': data})
-    
+
+@login_required 
 def fechar_pedido(request):
     exames_id = request.POST.getlist('exames')
     solicitacao_exames = TiposExames.objects.filter(id__in = exames_id)
