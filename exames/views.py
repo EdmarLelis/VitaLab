@@ -68,4 +68,12 @@ def fechar_pedido(request):
 def gerenciar_pedidos(request):
     pedidos_exames = PedidosExames.objects.filter(usuario=request.user)
     return render(request, 'gerenciar_pedidos.html', {'pedidos_exames': pedidos_exames})
-    # fazer cancelar funcionar
+
+def cancelar_pedido(request, pedido_id):
+    pedido = PedidosExames.objects.get(id=pedido_id)
+    if pedido.usuario == request.user:
+        pedido.agendado = False
+        pedido.save()
+    else:
+        messages.add_message(request, constants.ERROR, f'Você não pode cancelar o pedido de ID {pedido_id}, ele não é seu!')
+    return redirect('/exames/gerenciar_pedidos')
