@@ -17,30 +17,32 @@
         <div class="alert {{ message.tags }}">{{ message }}</div>
             {% endfor %}
             {% endif %}
-            <div class="card card-view">
+        <div class="card card-view">
             <table>
-                <tr>
-                    <th>N° da Solicitação</th>
-                    <th>Data</th>
-                    <th>Exames</th>
-                    <th>Ação</th>
-                </tr>
-                {% for pedidos in pedidos_exames %}
-                <tr class="linha-tabela">
-                    <td>{{pedidos.id}}</td>
-                    <td>{{pedidos.data}}</td>
+                <thead>
+                    <tr>
+                        <th>N° da Solicitação</th>
+                        <th>Data</th>
+                        <th>Exames</th>
+                        <th>Ação</th>
+                    </tr>
+                    {% for pedidos in pedidos_exames %}
+                    <tr class="linha-tabela">
+                        <td>{{pedidos.id}}</td>
+                        <td>{{pedidos.data}}</td>
+                        <td>
+                            <select class="form-select" >
+                                {% for exame in pedidos.exames.all %}
+                                <option style="color: black" value="">{{exame.exame.nome}}</option>
+                                {% endfor %}
+                            </select>
+                    </td>
                     <td>
-                        <select class="form-select" >
-                            {% for exame in pedidos.exames.all %}
-                            <option style="color: black" value="">{{exame.exame.nome}}</option>
-                            {% endfor %}
-                        </select>
-                </td>
-                <td>
-                    <a href="{% url 'cancelar_pedido' pedidos.id %}" class="btn btn-danger {% if not pedidos.agendado %} disabled {% endif %}">Cancelar</a>
-                </td>
-                </tr>
-                {% endfor %}
+                        <a href="{% url 'cancelar_pedido' pedidos.id %}" class="btn btn-danger {% if not pedidos.agendado %} disabled {% endif %}">Cancelar</a>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </thead>
             </table>
         </div>
     </div>

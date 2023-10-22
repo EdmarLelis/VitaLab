@@ -10,4 +10,20 @@ td, th{
     padding: 0;
     border: none;
     height: 70vh;
+    overflow: auto;
 }
+
+table {
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead tr th {
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+  
+  
