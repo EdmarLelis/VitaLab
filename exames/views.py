@@ -69,6 +69,7 @@ def gerenciar_pedidos(request):
     pedidos_exames = PedidosExames.objects.filter(usuario=request.user)
     return render(request, 'gerenciar_pedidos.html', {'pedidos_exames': pedidos_exames})
 
+@login_required
 def cancelar_pedido(request, pedido_id):
     pedido = PedidosExames.objects.get(id=pedido_id)
     if pedido.usuario == request.user:
@@ -77,3 +78,8 @@ def cancelar_pedido(request, pedido_id):
     else:
         messages.add_message(request, constants.ERROR, f'Você não pode cancelar o pedido de ID {pedido_id}, ele não é seu!')
     return redirect('/exames/gerenciar_pedidos')
+
+@login_required
+def gerenciar_exames(request):
+    exames = SolicitacaoExame.objects.filter(usuario = request.user)
+    return render(request, 'gerenciar_exames.html', {'exames': exames})
