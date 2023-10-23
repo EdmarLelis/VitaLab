@@ -20,18 +20,42 @@
         {% endif %}
         <div class="card card-view">
             <div class="sub-card">
-                <h3>Exames de sangue</h3>
-                <hr>
-                <br>
-                LISTAR EXAMES AQUI
+                <table>
+                    <h3>Exames de sangue</h3>
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                        </tr>
+                        <br>
+                        {% for exame in exames %}
+                            <tr>
+                                <td>{{exame}}</td>
+                            </tr>
+                        {% endfor %}
+                    </thead>
+                </table>
             </div>
                 <br>
                 <br>
             <div class="sub-card">
                 <h3>Exames de imagem</h3>
-                <hr>
-                <br>
-                LISTAR EXAMES AQUI
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                        </tr>
+                        <br>
+                        {% for exame in exames %}
+                            <tr>
+                                <td>{{exame}}</td>
+                            </tr>
+                        {% endfor %}
+                    </thead>
+                </table>
+                
             </div>
         </div>
     </div>

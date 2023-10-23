@@ -20,7 +20,7 @@ table {
 }
 
 thead tr th {
-    background: white;
+    background: #0C121C;
     position: sticky;
     top: 0;
     z-index: 99;
