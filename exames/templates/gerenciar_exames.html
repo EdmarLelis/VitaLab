@@ -20,42 +20,32 @@
         {% endif %}
         <div class="card card-view">
             <div class="sub-card">
-                <table>
-                    <h3>Exames de sangue</h3>
-                    <thead>
-                        <tr>
-                            <th>
-                            </th>
-                        </tr>
-                        <br>
-                        {% for exame in exames %}
-                            <tr>
-                                <td>{{exame}}</td>
-                            </tr>
-                        {% endfor %}
-                    </thead>
-                </table>
+                <h3>Exames de sangue</h3>
+                <hr>
+                <br>
+                {% for exame in exames %}
+                    {% if exame.exame.tipo == 'S' %}
+                        <div class="row">
+                            <div class="col-md">{{exame.exame.nome}}</div>
+                            <div class="col-md">
+                                {{exame.badge_template}}
+                            </div>
+                            <div class="col-md"></div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
                 <br>
                 <br>
             <div class="sub-card">
                 <h3>Exames de imagem</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                            </th>
-                        </tr>
-                        <br>
-                        {% for exame in exames %}
-                            <tr>
-                                <td>{{exame}}</td>
-                            </tr>
-                        {% endfor %}
-                    </thead>
-                </table>
-                
+                <hr>
+                <br>
+                {% for exame in exames %}
+                    {% if exame.exame.tipo == 'I' %}
+                        {{exame.exame.nome}}
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
