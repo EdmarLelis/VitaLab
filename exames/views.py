@@ -97,7 +97,7 @@ def permitir_abrir_exame(request, exame_id):
             return redirect(f'/exames/solicitar_senha_exame/{exame_id}')
     except:
         messages.add_message(request, constants.ERROR, 'Nenhum arquivo foi anexado a este exame.' )
-        return render(request, 'gerenciar_exames.html', {'exames': exames})
+        return redirect('/exames/gerenciar_exames/')
 
 @login_required
 def solicitar_senha_exame(request, exame_id):
@@ -108,7 +108,12 @@ def solicitar_senha_exame(request, exame_id):
     elif request.method == 'POST':
         senha = request.POST.get('senha')
         if senha == exame.senha:
-            return redirect(exame.resultado.url)
+            try:
+                return redirect(exame.resultado.url)
+            except:
+                messages.add_message(request, constants.ERROR, 'Nenhum arquivo foi anexado a este exame.' )
+                return redirect(f'/exames/solicitar_senha_exame/{exame.id}')
+
         else:
             messages.add_message(request, constants.ERROR, 'Senha invalida.')
             return redirect(f'/exames/solicitar_senha_exame/{exame.id}')
