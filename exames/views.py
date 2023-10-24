@@ -5,6 +5,7 @@ from .models import TiposExames, PedidosExames, SolicitacaoExame
 from datetime import datetime
 from django.contrib.messages import constants
 from django.contrib import messages
+
 # Create your views here.
 
 @login_required
@@ -83,3 +84,23 @@ def cancelar_pedido(request, pedido_id):
 def gerenciar_exames(request):
     exames = SolicitacaoExame.objects.filter(usuario = request.user)
     return render(request, 'gerenciar_exames.html', {'exames': exames})
+
+@login_required
+def permitir_abrir_exame(request, exame_id):
+    exame = SolicitacaoExame.objects.get(id = exame_id)
+    exames = SolicitacaoExame.objects.filter(usuario = request.user)
+
+    try:
+        if not exame.requer_senha:
+            return redirect(exame.resultado.url)
+        else:
+            return redirect(f'/exames/solicitar_senha_exame/{exame_id}')
+    except:
+        messages.add_message(request, constants.ERROR, 'Nenhum arquivo foi anexado a este exame.' )
+        return render(request, 'gerenciar_exames.html', {'exames': exames})
+
+@login_required
+def solicitar_senha_exame(request, exame_id):
+    exame = SolicitacaoExame.objects.get(id = exame_id)
+    if request.method == "GET":
+        return render(request, 'solicitar_senha_exame.html', {'exame':exame})
