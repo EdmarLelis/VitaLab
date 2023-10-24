@@ -36,7 +36,7 @@ class SolicitacaoExame(models.Model):
     
     def badge_template(self):
         if self.status == 'E':
-            classes = 'bg-warning'
+            classes = 'bg-warning text-dark'
             mensagem = 'Em análize'
         elif self.status == 'F':
             mensagem = 'Finalizado'

@@ -30,7 +30,13 @@
                             <div class="col-md">
                                 {{exame.badge_template}}
                             </div>
-                            <div class="col-md"></div>
+                            <div class="col-md">
+                                {% if exame.status == 'F' %}
+                                    <a href="#" class="btn btn-light"> Abrir </a>
+                                {% else %}
+                                    <a href="#" class="btn btn-light disabled"> Abrir </a>
+                                {% endif %}
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -43,7 +49,19 @@
                 <br>
                 {% for exame in exames %}
                     {% if exame.exame.tipo == 'I' %}
-                        {{exame.exame.nome}}
+                        <div class="row">
+                            <div class="col-md">{{exame.exame.nome}}</div>
+                            <div class="col-md">
+                                {{exame.badge_template}}
+                            </div>
+                            <div class="col-md">
+                                {% if exame.status == 'F' %}
+                                    <a href="#" class="btn btn-light"> Abrir </a>
+                                {% else %}
+                                    <a href="#" class="btn btn-light disabled"> Abrir </a>
+                                {% endif %}
+                            </div>
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>

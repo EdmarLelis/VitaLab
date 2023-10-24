@@ -1,13 +1,31 @@
 .sub-card{
     background-color: var(--dark-color);
-    padding: 0;
+    padding: 20px;
 }
 
 h3 {
     font-weight: bold;
-    padding-top: 10px;
 }
 
 .row {
     max-width: 100%;
+    margin-bottom:5px;
+
+}
+
+.btn {
+    height: 22px; 
+    width: 80px;
+    font-size: 14px; 
+    padding-top: 0; 
+    padding-bottom: 0;
+    background-color: #65ebff;
+    border: #65ebff;
+    font-weight: bold;
+    color: #0C121C;
+}
+
+.btn:hover {
+    background-color: #337b86;
+    border: #337b86;
 }
