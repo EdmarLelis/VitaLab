@@ -23,7 +23,7 @@ class TiposExames(models.Model):
 class SolicitacaoExame(models.Model):
     choice_status = (
         ('E', 'Em análise'),
-        ('F', 'Finalisado')
+        ('F', 'Finalizado')
     )
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     exame = models.ForeignKey(TiposExames, on_delete=models.DO_NOTHING)
