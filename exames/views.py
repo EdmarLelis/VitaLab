@@ -110,5 +110,5 @@ def solicitar_senha_exame(request, exame_id):
         if senha == exame.senha:
             return redirect(exame.resultado.url)
         else:
-            messages.add_message(request, constants.ERROR, 'Senha incorreta.')
+            messages.add_message(request, constants.ERROR, 'Senha invalida.')
             return redirect(f'/exames/solicitar_senha_exame/{exame.id}')
