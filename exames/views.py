@@ -120,4 +120,5 @@ def solicitar_senha_exame(request, exame_id):
         
 @login_required
 def gerar_acesso_medico(request):
-    return HttpResponse('Link criado')
+    if request.method == "GET":
+        return render(request, 'gerar_acesso_medico.html')
