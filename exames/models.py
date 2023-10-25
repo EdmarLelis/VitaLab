@@ -2,6 +2,7 @@ from typing import Any
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
+from secrets import token_urlsafe
 
 # Create your models here.
 class TiposExames(models.Model):
@@ -63,7 +64,7 @@ class AcessoMedico(models.Model):
     criado_em = models.DateTimeField()
     data_exames_iniciais = models.DateField()
     data_exames_finais = models.DateField()
-    token = models.CharField(max_length=20)
+    token = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         return self.token
