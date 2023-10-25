@@ -122,3 +122,6 @@ def solicitar_senha_exame(request, exame_id):
 def gerar_acesso_medico(request):
     if request.method == "GET":
         return render(request, 'gerar_acesso_medico.html')
+    
+    elif request.method == "POST":
+        return 
