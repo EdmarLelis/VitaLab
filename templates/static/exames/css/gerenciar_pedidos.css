@@ -1,5 +1,5 @@
-linha-tabela{
-    background-color: var(--dark-color);
+.linha-tabela{
+    background-color: #00000063;
     height: 20px;
 }
 td, th{

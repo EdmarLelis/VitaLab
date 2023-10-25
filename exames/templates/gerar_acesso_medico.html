@@ -47,19 +47,25 @@
                     <input style="width: 40%" type="submit" class="btn-default" value="Gerar link">
                 </form>
             </div>
-            <div class="col-md">
-                <div class="card">
-                    <table style="text-align: center">
-                        <tr>
-                            <th>Id</th>
-                            <th>Status</th>
-                            <th>Link</th>
-                        </tr>
-                            <tr class="linha-tabela">
-                            <td>01</td>
-                            <td>Status 1</td>
-                            <td>URL AQUI</td>
-                        </tr>
+            <div class="col-md tabela">
+                <div class="card card-view">
+                    <table style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Status</th>
+                                <th>Link</th>
+                            </tr>
+                            {% for acesso in acessos_medico %}
+                                <tr class="linha-tabela">
+                                    <td>{{acesso.identificacao}}</td>
+                                    <td>{{acesso.status}}</td>
+                                    <td>http:/127.0.0.1:800/exames/medico/{{acesso.token}}</td>
+                                </tr>
+                            {% endfor %}
+                        </thead>
+                       
+                        
                     </table>
                 </div>
             </div>

@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from secrets import token_urlsafe
+from django.utils import timezone
+from datetime import timedelta
 
 # Create your models here.
 class TiposExames(models.Model):
@@ -74,3 +76,7 @@ class AcessoMedico(models.Model):
             self.token = token_urlsafe(6)
 
         super(AcessoMedico, self).save(*args, **kwargs)
+
+    @property
+    def status(self):
+        return 'Expirado' if timezone.now() > (self.criado_em + timedelta(hours=self.tempo_de_acesso)) else 'Ativo'
