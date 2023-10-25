@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import TiposExames, PedidosExames, SolicitacaoExame
+from .models import TiposExames, PedidosExames, SolicitacaoExame, AcessoMedico
 from datetime import datetime
 from django.contrib.messages import constants
 from django.contrib import messages
@@ -124,4 +124,19 @@ def gerar_acesso_medico(request):
         return render(request, 'gerar_acesso_medico.html')
     
     elif request.method == "POST":
-        return 
+        identificacao = request.POST.get('identificacao')
+        tempo_de_acesso = request.POST.get('tempo_de_acesso')
+        data_exame_inicial = request.POST.get("data_exame_inicial")
+        data_exame_final = request.POST.get("data_exame_final")
+        acesso_medico = AcessoMedico(
+            usuario = request.user,
+            identificacao = identificacao,
+            tempo_de_acesso = tempo_de_acesso,
+            data_exames_iniciais = data_exame_inicial,
+            data_exames_finais = data_exame_final,
+            criado_em = datetime.now()
+        )
+        acesso_medico.save()
+        messages.add_message(request, constants.SUCCESS, 'Acesso gerado com sucesso')
+        return redirect('/exames/gerar_acesso_medico')
+ 
