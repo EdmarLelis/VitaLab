@@ -54,3 +54,22 @@ class PedidosExames(models.Model):
 
     def __str__(self):
         return f'{self.usuario} | {self.data}'
+    
+
+class AcessoMedico(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    identificacao = models.CharField(max_length=50)
+    tempo_de_acesso = models.IntegerField()
+    criado_em = models.DateTimeField()
+    data_exames_iniciais = models.DateField()
+    data_exames_finais = models.DateField()
+    token = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.token
+    
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = token_urlsafe(6)
+
+        super(AcessoMedico, self).save(*args, **kwargs)
