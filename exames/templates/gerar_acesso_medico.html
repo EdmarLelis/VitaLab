@@ -60,7 +60,7 @@
                                 <tr class="linha-tabela">
                                     <td>{{acesso.identificacao}}</td>
                                     <td>{{acesso.status}}</td>
-                                    <td>http:/127.0.0.1:800/exames/medico/{{acesso.token}}</td>
+                                    <td><a href="{{acesso.url}}">{{acesso.token}}</a></td>
                                 </tr>
                             {% endfor %}
                         </thead>

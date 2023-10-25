@@ -143,3 +143,5 @@ def gerar_acesso_medico(request):
         messages.add_message(request, constants.SUCCESS, 'Acesso gerado com sucesso')
         return redirect('/exames/gerar_acesso_medico')
  
+def acesso_medico(request, token):
+    return HttpResponse(token)

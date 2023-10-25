@@ -6,6 +6,7 @@ from secrets import token_urlsafe
 from django.utils import timezone
 from datetime import timedelta
 
+
 # Create your models here.
 class TiposExames(models.Model):
     tipo_choices = (
@@ -80,3 +81,7 @@ class AcessoMedico(models.Model):
     @property
     def status(self):
         return 'Expirado' if timezone.now() > (self.criado_em + timedelta(hours=self.tempo_de_acesso)) else 'Ativo'
+    
+    @property
+    def url(self):
+        return f'/exames/acesso_medico/{self.token}'
