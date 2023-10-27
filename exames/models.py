@@ -85,4 +85,3 @@ class AcessoMedico(models.Model):
     @property
     def url(self):
         return f'/exames/acesso_medico/{self.token}'
-
