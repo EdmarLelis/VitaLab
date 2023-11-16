@@ -151,4 +151,4 @@ def acesso_medico(request, token):
     
     elif acesso_medico.status == "Expirado":
         messages.add_message(request, constants.ERROR, 'Acesso médico expirado, Solicite outro.')
-        return redirect(f'/exames/gerar_acesso_medico/')
+        return redirect(f'/usuarios/login')
