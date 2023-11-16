@@ -144,4 +144,11 @@ def gerar_acesso_medico(request):
         return redirect('/exames/gerar_acesso_medico')
  
 def acesso_medico(request, token):
-    return HttpResponse(token)
+    acesso_medico = AcessoMedico.objects.get(token = token)
+
+    if acesso_medico.status == "Ativo":
+        return HttpResponse(acesso_medico.status)
+    
+    elif acesso_medico.status == "Expirado":
+        messages.add_message(request, constants.ERROR, 'Acesso médico expirado, Solicite outro.')
+        return redirect(f'/exames/gerar_acesso_medico/')
