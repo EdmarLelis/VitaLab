@@ -145,7 +145,8 @@ def gerar_acesso_medico(request):
  
 def acesso_medico(request, token):
     acesso_medico = AcessoMedico.objects.get(token = token)
-
+    pedidos = PedidosExames.objects.filter(usuario = acesso_medico.usuario).filter(data__gte = acesso_medico.data_exames_iniciais).filter(data__lte =acesso_medico.data_exames_finais)
+    print(pedidos)
     if acesso_medico.status == "Ativo":
         return HttpResponse(acesso_medico.status)
     
