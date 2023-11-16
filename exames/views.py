@@ -146,9 +146,9 @@ def gerar_acesso_medico(request):
 def acesso_medico(request, token):
     acesso_medico = AcessoMedico.objects.get(token = token)
     pedidos = PedidosExames.objects.filter(usuario = acesso_medico.usuario).filter(data__gte = acesso_medico.data_exames_iniciais).filter(data__lte =acesso_medico.data_exames_finais)
-    print(pedidos)
+
     if acesso_medico.status == "Ativo":
-        return HttpResponse(acesso_medico.status)
+        return render(request, 'acesso_medico.html', {"pedidos": pedidos})
     
     elif acesso_medico.status == "Expirado":
         messages.add_message(request, constants.ERROR, 'Acesso médico expirado, Solicite outro.')
