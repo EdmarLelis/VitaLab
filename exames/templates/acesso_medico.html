@@ -14,13 +14,13 @@
         <table style="">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Exame</th>
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Resultado</th>
                 </tr>
                     {% for pedido in pedidos %}
                         {% for exame in pedido.exames.all %}
                             <tr class="linha-tabela">
-                                <td>{{exame.exame.nome}}</td>
+                                <td style="text-align: center;">{{exame.exame.nome}}</td>
                                 {% if exame.resultado %}
                                     <td style="text-align: center;"><a style="text-decoration: none; background-color: rgb(21, 255, 126);" href="{{exame.resultado.url}}" class="btn-secundario">Ver exame</a></td>
                                 {% else %}
