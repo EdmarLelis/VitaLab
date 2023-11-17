@@ -22,10 +22,9 @@
                             <tr class="linha-tabela">
                                 <td>{{exame.exame.nome}}</td>
                                 {% if exame.resultado %}
-                                    <td style="text-align: center;"><a style="text-decoration: none;" href="#" class="btn-secundario">Ver exame</a></td>
-
+                                    <td style="text-align: center;"><a style="text-decoration: none; background-color: rgb(21, 255, 126);" href="{{exame.resultado.url}}" class="btn-secundario">Ver exame</a></td>
                                 {% else %}
-
+                                    <td style="text-align: center;"><a style="text-decoration: none; background-color: rgb(255, 255, 115);" href="#" class="btn-secundario">Em análise</a></td>
                                 {% endif %}
                             </tr>
                         {% endfor %}
