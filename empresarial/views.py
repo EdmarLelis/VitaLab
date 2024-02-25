@@ -1,0 +1,20 @@
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.db.models.functions import Concat
+from django.db.models import Value
+from django.contrib.admin.views.decorators import staff_member_required
+# Create your views here.
+
+@staff_member_required
+def gerenciar_clientes(request):
+    clientes = User.objects.filter(is_staff=False)
+
+    nome_completo = request.GET.get('nome')
+    email = request.GET.get('email')
+
+    if email and email != "None":
+        clientes = clientes.filter(email__contains = email)
+    if nome_completo and nome_completo != "None":
+        clientes = clientes.annotate(full_name=Concat('first_name', Value(' ') , 'last_name')).filter(full_name__contains=nome_completo)
+    
+    return render(request, "gerenciar_clientes.html", {"clientes": clientes, 'nome_completo': nome_completo, 'email': email})
